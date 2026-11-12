@@ -43,9 +43,11 @@ public class DataSourceSpringConfig {
   @Bean
   public DataSource dataSource() {
     final DatabaseConfig config =
-        new DatabaseConfig(dbHost, dbPort, dbName, dbUsername, dbPassword, dbSslMode);
+            new DatabaseConfig(dbHost.trim(), dbPort, dbName.trim(), dbUsername.trim(), dbPassword.trim(), dbSslMode.trim());
+
 
     final HikariConfig hikariConfig = new HikariConfig();
+    hikariConfig.setDriverClassName("com.mysql.cj.jdbc.Driver");
     hikariConfig.setJdbcUrl(config.buildJdbcUrl());
     hikariConfig.setUsername(config.username());
     hikariConfig.setPassword(config.password());
